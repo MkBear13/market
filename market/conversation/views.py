@@ -4,7 +4,17 @@ from django.shortcuts import render, get_object_or_404, redirect
 from item.models import Item
 
 from .forms import ConversationMessageForm
-from .models import Conversation
+from .models import Conversation, ConversationMessage
+from rest_framework import viewsets
+from .serializers import ConversationSerializer, ConversationMessageSerializer
+
+class ConversationViewSet(viewsets.ModelViewSet):
+    queryset = Conversation.objects.all()
+    serializer_class = ConversationSerializer
+
+class ConversationMessageViewSet(viewsets.ModelViewSet):
+    queryset = ConversationMessage.objects.all()
+    serializer_class = ConversationMessageSerializer
 
 @login_required
 def new_conversation(request, item_pk):

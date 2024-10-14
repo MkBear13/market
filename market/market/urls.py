@@ -18,10 +18,20 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from item.views import ItemViewSet, CategoryViewSet
+from conversation.views import ConversationViewSet, ConversationMessageViewSet
 
+
+router = DefaultRouter()
+router.register(r'items', ItemViewSet)
+router.register(r'categories', CategoryViewSet)
+router.register(r'conversation', ConversationViewSet)
+router.register(r'conversation_message', ConversationMessageViewSet)
 
 urlpatterns = [
     path('',  include('core.urls')),
+    path('api/', include(router.urls)),
     path('items/', include('item.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('inbox/', include('conversation.urls')),

@@ -3,6 +3,16 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import NewItemForm, EditItemForm
 from .models import  Item, Category
+from rest_framework import viewsets
+from .serializers import ItemSerializer, CategorySerializer
+
+class ItemViewSet(viewsets.ModelViewSet):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
 
 def browse(request):
     query = request.GET.get('query', '')
