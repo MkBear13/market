@@ -4,13 +4,16 @@ from item.models import Category, Item
 
 from .forms import SignupForm
 
+from django.db.models import Count,Q
+
 def index(request):
     items = Item.objects.filter(is_sold=False)[0:6]
-    categories = Category.objects.all()
-
+    categories = Category.objects.annotate(
+        unsold_items_count = Count('items', filter=Q(items__is_sold = False))
+    )
     return render(request, 'core/index.html', {
         'categories': categories,
-        'items': items,
+        'items': items
     })
 
 

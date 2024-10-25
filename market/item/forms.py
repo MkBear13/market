@@ -55,5 +55,6 @@ class EditItemForm(forms.ModelForm):
             'name': 'Название',
             'description': 'Описание',
             'price': 'Цена',
-            'image': 'Изображение'
+            'image': 'Изображение',
+            'is_sold': 'Продано'
         }
